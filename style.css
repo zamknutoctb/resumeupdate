@@ -390,41 +390,45 @@ a:hover {
 }
 
 @media (max-width: 768px) and (orientation: landscape) {
-    
+    /* Общие шрифты - примерно в 2 раза меньше */
     h2 {
-        font-size: 2rem;
+        font-size: 1.8rem; /* было 3rem */
     }
     p, li {
-        font-size: 0.9rem;
+        font-size: 0.8rem; /* было 1.2rem */
     }
-    .skill-box h3, .exp-box h3 {
-        font-size: 1.1rem;
+    .skill-box h3, .exp-box h3, .edu-left h3, .edu-right h3 {
+        font-size: 1rem; /* было 1.5rem */
     }
     .contact-box h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem; /* было 2.5rem */
     }
     .contact-box p {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     .skill-box, .exp-box {
-        width: 160px;
-        padding: 10px;
+        width: 130px; /* было 250px */
+        padding: 8px;
+    }
+    .edu-left, .edu-right {
+        max-width: 140px; /* было 300px */
+        padding: 8px;
     }
     .contact-box {
-        max-width: 280px;
-        padding: 15px 20px;
+        max-width: 220px; /* было 400px */
+        padding: 12px 15px;
         top: 15%;
         right: 15%;
     }
     .section .content {
-        max-width: 400px;
-        padding: 15px;
+        max-width: 280px; /* было 600px */
+        padding: 10px;
     }
 
     .character {
-        width: 100px;
-        height: 100px;
+        width: 55px;
+        height: 55px;
     }
     .character.corner {
         left: 10%;
@@ -436,40 +440,43 @@ a:hover {
         transform: translateX(-50%);
     }
     .character.right-bottom {
-        left: calc(100% - 100px - 5%);
+        left: calc(100% - 55px - 5%);
         bottom: 5%;
     }
 
     #hero .content {
         margin-left: 10%;
     }
-    .edu-left, .edu-right {
-        max-width: 200px;
-        padding: 10px;
+    .edu-left {
+        margin-left: 5%;
     }
-    .edu-left h3, .edu-right h3 {
-        font-size: 1.1rem;
+    .edu-right {
+        margin-right: 5%;
     }
 }
- {
+
+@media (max-width: 568px) and (orientation: landscape) {
     .skill-box, .exp-box {
-        width: 130px;
-        padding: 8px;
+        width: 100px;
+        padding: 5px;
     }
-    .skill-box h3, .exp-box h3 {
-        font-size: 1rem;
-    }
-    .skill-box li, .exp-box p {
-        font-size: 0.8rem;
+    .edu-left, .edu-right {
+        max-width: 110px;
+        padding: 5px;
     }
     .contact-box {
-        max-width: 220px;
+        max-width: 170px;
+        padding: 8px 10px;
+    }
+    .section .content {
+        max-width: 200px;
+        padding: 8px;
     }
     .character {
-        width: 80px;
-        height: 80px;
+        width: 45px;
+        height: 45px;
     }
     .character.right-bottom {
-        left: calc(100% - 80px - 5%);
+        left: calc(100% - 45px - 5%);
     }
 }

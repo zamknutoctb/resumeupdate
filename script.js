@@ -13,7 +13,6 @@ let scrollTimeout = null;
 let lastScrollLeft = 0;
 let lastActiveIndex = 0;
 
-// Горизонтальная прокрутка колёсиком мыши
 sectionsContainer.addEventListener('wheel', (e) => {
     e.preventDefault();
     sectionsContainer.scrollLeft += e.deltaY;

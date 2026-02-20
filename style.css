@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 100vh;
+    height: 100dvh;
     overflow-y: hidden;
     background-image: url('bg.png');
     background-size: cover;
@@ -44,17 +44,22 @@ body {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
-    height: 100vh;
+    height: 100dvh;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
     position: relative;
     z-index: 1;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.sections::-webkit-scrollbar {
+    display: none;
 }
 
 .section {
     flex: 0 0 100%;
-    height: 100vh;
+    height: 100dvh;
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
@@ -246,11 +251,11 @@ a:hover {
 
 .character {
     position: fixed;
-    width: 160px;          
+    width: 160px;
     height: 160px;
-    background-image: url('character.png');
     background-repeat: no-repeat;
-    background-size: 960px 160px;
+    background-size: contain;
+    background-position: center;
     z-index: 1000;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
@@ -258,29 +263,30 @@ a:hover {
 }
 
 .character.idle {
-    animation: idle 0.8s steps(1) infinite;
+    animation: idleAnim 0.8s steps(1) infinite;
 }
-.character.run-right {
-    animation: runRight 0.3s steps(1) infinite;
-}
-.character.run-left {
-    animation: runLeft 0.3s steps(1) infinite;
+@keyframes idleAnim {
+    0% { background-image: url('idle1.png'); }
+    50% { background-image: url('idle2.png'); }
+    100% { background-image: url('idle1.png'); }
 }
 
-@keyframes idle {
-    0% { background-position: 0 0; }
-    50% { background-position: -160px 0; }
-    100% { background-position: 0 0; }
+.character.run-right {
+    animation: runRightAnim 0.3s steps(1) infinite;
 }
-@keyframes runRight {
-    0% { background-position: -320px 0; }
-    50% { background-position: -480px 0; }
-    100% { background-position: -320px 0; }
+@keyframes runRightAnim {
+    0% { background-image: url('run-right1.png'); }
+    50% { background-image: url('run-right2.png'); }
+    100% { background-image: url('run-right1.png'); }
 }
-@keyframes runLeft {
-    0% { background-position: -640px 0; }
-    50% { background-position: -800px 0; }
-    100% { background-position: -640px 0; }
+
+.character.run-left {
+    animation: runLeftAnim 0.3s steps(1) infinite;
+}
+@keyframes runLeftAnim {
+    0% { background-image: url('run-left1.png'); }
+    50% { background-image: url('run-left2.png'); }
+    100% { background-image: url('run-left1.png'); }
 }
 
 .character.corner {
@@ -330,115 +336,113 @@ a:hover {
     }
 }
 
+/* Адаптация для мобильных (ландшафт) – только шрифты и размеры */
 @media (max-width: 1024px) and (orientation: landscape) {
-    html, body {
-        height: calc(var(--vh, 1vh) * 100);
+    h2 { font-size: 2rem; }
+    p, li { font-size: 0.9rem; }
+    .skill-box h3, .exp-box h3, .edu-left h3, .edu-right h3 { font-size: 1.1rem; }
+    .contact-box h2 { font-size: 1.8rem; }
+    .contact-box p { font-size: 0.9rem; }
+
+    .edu-left, .edu-right {
+        max-width: 200px;
+        padding: 15px;
     }
-    .sections {
-        transform: scale(0.6);
-        transform-origin: top left;
-        width: 166.666%;
-        height: 166.666%;
+
+    .skills-container, .experience-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
     }
-    .nav-menu {
-        transform: scale(0.6) translateX(-50%);
-        transform-origin: top left;
-        top: 10px;
+    .skill-box, .exp-box {
+        position: static;
+        width: 200px;
+        margin: 5px;
     }
-    .scroll-arrow {
-        transform: scale(0.6) translateY(-50%);
+    .skill-box.top-left,
+    .skill-box.top-right,
+    .skill-box.center-left,
+    .skill-box.center-right,
+    .exp-box.top-left,
+    .exp-box.top-right,
+    .exp-box.center-left,
+    .exp-box.center-right {
+        top: auto;
+        left: auto;
+        right: auto;
+        transform: none;
     }
+
+    .contact-box {
+        top: 15%;
+        right: 10%;
+        max-width: 280px;
+        padding: 20px;
+    }
+
+    #hero .content {
+        margin-left: 10%;
+    }
+
     .character {
-        width: 96px;
-        height: 96px;
-        background-size: 576px 96px;
+        width: 120px;
+        height: 120px;
     }
     .character.corner {
         left: 10%;
     }
     .character.right-bottom {
-        left: calc(100% - 96px - 5%);
-    }
-    .skill-box, .exp-box {
-        width: 200px;
-    }
-    .edu-left, .edu-right {
-        max-width: 240px;
-    }
-    .contact-box {
-        max-width: 320px;
-        padding: 20px 30px;
+        left: calc(100% - 120px - 5%);
     }
 }
 
 @media (max-width: 768px) and (orientation: landscape) {
-    .sections {
-        transform: scale(0.5);
-        width: 200%;
-        height: 200%;
-    }
-    .nav-menu {
-        transform: scale(0.5) translateX(-50%);
-    }
-    .scroll-arrow {
-        transform: scale(0.5) translateY(-50%);
-    }
-    .character {
-        width: 80px;
-        height: 80px;
-        background-size: 480px 80px;
-    }
-    .character.corner {
-        left: 8%;
-    }
-    .character.right-bottom {
-        left: calc(100% - 80px - 4%);
-    }
     .skill-box, .exp-box {
         width: 160px;
         padding: 12px;
     }
     .edu-left, .edu-right {
-        max-width: 180px;
+        max-width: 160px;
+        padding: 12px;
     }
     .contact-box {
         max-width: 240px;
+        padding: 15px;
+    }
+    .character {
+        width: 100px;
+        height: 100px;
+    }
+    .character.right-bottom {
+        left: calc(100% - 100px - 5%);
     }
 }
 
 @media (max-width: 480px) and (orientation: landscape) {
-    .sections {
-        transform: scale(0.4);
-        width: 250%;
-        height: 250%;
-    }
-    .nav-menu {
-        transform: scale(0.4) translateX(-50%);
-        top: 5px;
-    }
-    .scroll-arrow {
-        transform: scale(0.4) translateY(-50%);
-    }
-    .character {
-        width: 64px;
-        height: 64px;
-        background-size: 384px 64px;
-    }
-    .character.corner {
-        left: 5%;
-    }
-    .character.right-bottom {
-        left: calc(100% - 64px - 3%);
-    }
     .skill-box, .exp-box {
-        width: 120px;
+        width: 130px;
         padding: 8px;
     }
     .edu-left, .edu-right {
-        max-width: 140px;
+        max-width: 130px;
+        padding: 8px;
     }
     .contact-box {
-        max-width: 180px;
-        padding: 10px 15px;
+        max-width: 200px;
+        padding: 10px;
+    }
+    .character {
+        width: 80px;
+        height: 80px;
+    }
+    .character.right-bottom {
+        left: calc(100% - 80px - 3%);
     }
 }

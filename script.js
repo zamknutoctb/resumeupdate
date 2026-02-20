@@ -13,13 +13,11 @@ let scrollTimeout = null;
 let lastScrollLeft = 0;
 let lastActiveIndex = 0;
 
-function setVhProperty() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-setVhProperty();
-window.addEventListener('resize', setVhProperty);
-window.addEventListener('orientationchange', setVhProperty);
+// Горизонтальная прокрутка колёсиком мыши
+sectionsContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    sectionsContainer.scrollLeft += e.deltaY;
+});
 
 function updateParallax() {
     if (!sectionsContainer) return;
@@ -196,3 +194,15 @@ window.addEventListener('load', () => {
 window.addEventListener('resize', () => {
     updateParallax();
 });
+// Коррекция высоты для мобильных браузеров (скрытие адресной строки)
+function setVhProperty() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Вызываем сразу
+setVhProperty();
+
+// Обновляем при изменении размера и повороте экрана
+window.addEventListener('resize', setVhProperty);
+window.addEventListener('orientationchange', setVhProperty);
